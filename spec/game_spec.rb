@@ -63,7 +63,13 @@ describe 'A game of rock paper scissors' do
         expect(game.play(:rock, :scissors)).to eq("Rock beats scissors!")
         expect(game.play(:scissors, :rock)).to eq("Rock beats scissors!")
       end
-      skip('is finished')
+
+      it 'finishes the game after a winner is announced' do
+        game = Game.new
+        game.start
+        game.play(:rock, :scissors)
+        expect(game.finish).to be_truthy
+      end
     end
 
     context 'rock vs paper' do
