@@ -73,21 +73,51 @@ describe 'A game of rock paper scissors' do
     end
 
     context 'rock vs paper' do
-      skip('returns "Paper beats rock!"')
-      skip('is finished')
+      it 'announces the correct winner' do
+        game = Game.new
+        game.start
+        expect(game.play(:paper, :rock)).to eq("Paper beats rock!")
+        expect(game.play(:rock, :paper)).to eq("Paper beats rock!")
+      end
+
+      it 'finishes the game after a winner is announced' do
+        game = Game.new
+        game.start
+        game.play(:paper, :rock)
+        expect(game.finish).to be_truthy
+      end
     end
 
-
     context 'scissors vs paper' do
-      skip('returns "Scissors vs paper!"')
-      skip('is finished')
+      it 'announces the correct winner' do
+        game = Game.new
+        game.start
+        expect(game.play(:scissors, :paper)).to eq("Scissors beats paper!")
+        expect(game.play(:paper, :scissors)).to eq("Scissors beats paper!")
+      end
+
+      it 'finishes the game after a winner is announced' do
+        game = Game.new
+        game.start
+        game.play(:scissors, :paper)
+        expect(game.finish).to be_truthy
+      end
     end
 
     context 'a tie game' do
-      skip('returns "Tie game. Try again!"')
-      skip('is not finished')
-    end
+      it "returns 'Tie Game. Try again!' if a tie is detected" do
+        game = Game.new
+        game.start
+        expect(game.play(:scissors, :scissors)).to eq('Tie game. Try again!')
+      end
 
+      it 'is not finished if a game is tied' do
+        game = Game.new
+        game.start
+        game.play(:scissors, :scissors)
+        expect(game.finish).to be_falsey
+      end
+    end
   end
 
 end
